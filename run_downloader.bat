@@ -18,12 +18,28 @@ echo Python is installed:
 python --version
 echo.
 
+REM Create or activate virtual environment
+if exist venv (
+    echo Virtual environment found. Activating...
+) else (
+    echo Creating virtual environment...
+    python -m venv venv
+)
+call venv\Scripts\activate.bat
+echo.
+
 REM Check if required packages are installed
 echo Checking for required Python packages...
 python -c "import yt_dlp" >nul 2>&1
 if %errorlevel% neq 0 (
     echo Installing yt-dlp...
     pip install yt-dlp
+)
+
+python -c "import yt_dlp_ejs" >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Installing yt-dlp-ejs...
+    pip install yt-dlp-ejs
 )
 
 python -c "import pandas" >nul 2>&1
@@ -111,7 +127,8 @@ if %errorlevel% neq 0 (
     echo Common solutions:
     echo 1. Make sure pandas is installed: pip install pandas
     echo 2. Make sure yt-dlp is installed: pip install yt-dlp
-    echo 3. Check your CSV file format matches the requirements
+    echo 3. Make sure yt-dlp-ejs is installed: pip install yt-dlp-ejs
+    echo 4. Check your CSV file format matches the requirements
     echo.
 ) else (
     echo.

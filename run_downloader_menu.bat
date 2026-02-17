@@ -57,6 +57,16 @@ if %errorlevel% neq 0 (
 )
 echo.
 
+echo Checking yt-dlp-ejs...
+python -c "import yt_dlp_ejs" 2>nul
+if %errorlevel% neq 0 (
+    echo [X] yt-dlp-ejs is NOT installed
+    echo     Run option 2 to install it
+) else (
+    echo [OK] yt-dlp-ejs is installed
+)
+echo.
+
 echo Checking pandas...
 python -c "import pandas; print('pandas version:', pandas.__version__)" 2>nul
 if %errorlevel% neq 0 (
@@ -95,8 +105,22 @@ if %errorlevel% neq 0 (
     goto menu
 )
 
+REM Create or activate virtual environment
+if exist venv (
+    echo Virtual environment found. Activating...
+) else (
+    echo Creating virtual environment...
+    python -m venv venv
+)
+call venv\Scripts\activate.bat
+echo.
+
 echo Installing yt-dlp...
 pip install --upgrade yt-dlp
+echo.
+
+echo Installing yt-dlp-ejs...
+pip install --upgrade yt-dlp-ejs
 echo.
 
 echo Installing pandas...
@@ -126,6 +150,17 @@ if not exist "spotify_to_youtube_downloader.py" (
     pause
     goto menu
 )
+
+REM Activate virtual environment if it exists
+if exist venv (
+    call venv\Scripts\activate.bat
+) else (
+    echo WARNING: Virtual environment not found.
+    echo Please run option 2 to install dependencies first.
+    pause
+    goto menu
+)
+echo.
 
 echo Enter the full path to your CSV file.
 echo.
