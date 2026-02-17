@@ -20,8 +20,27 @@ echo Python found:
 python --version
 echo.
 
+REM Create virtual environment
+echo Creating virtual environment...
+if exist venv (
+    echo Virtual environment already exists. Using existing one.
+) else (
+    python -m venv venv
+    echo Virtual environment created.
+)
+echo.
+
+REM Activate virtual environment
+call venv\Scripts\activate.bat
+echo.
+
+echo Installing packages...
 echo Installing yt-dlp...
 pip install yt-dlp
+echo.
+
+echo Installing yt-dlp-ejs...
+pip install yt-dlp-ejs
 echo.
 
 echo Installing pandas...
