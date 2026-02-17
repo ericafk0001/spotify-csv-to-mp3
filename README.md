@@ -1,7 +1,3 @@
-# Spotify Playlist to YouTube Downloader
-
-Download songs from YouTube using a Spotify playlist CSV.
-
 ## Quick Start (Windows)
 
 1. Download all files to a folder
